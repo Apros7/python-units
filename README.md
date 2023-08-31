@@ -1,10 +1,11 @@
 # UnitsPythonPackage
+## Installation
 Install with: 
 ```
 pip install units-python
 ```
 
-### How to use:
+## How to use:
 
 In this example, we have a physics problem to solve. 
 
@@ -30,7 +31,7 @@ number_of_soccer_balls_in_room = room_volume / soccer_ball_volume
 print(number_of_soccer_balls_in_room)
 ```
 
-### Custom functions:
+## Custom functions:
 If you want to use either of those, import them from units-python:
 ```
 from units-python import v
@@ -47,7 +48,7 @@ print(my_value_sqrt) # outputs "3 m"
 ```
 
 
-### What you, at this time, cannot do:
+## What you, at this time, cannot do:
 - sqrt
 - exp
 - value ** value (value ** constant works!)
