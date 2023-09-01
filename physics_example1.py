@@ -9,7 +9,7 @@ print(soccer_ball_volume)
 
 room_length = v("5 m")
 room_width = v("5 m")
-room_height = v("5 m")
+room_height = v("2.7 m")
 room_volume = room_length * room_width * room_height
 print(room_volume)
 
