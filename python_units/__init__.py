@@ -21,6 +21,8 @@ class v():
     def __sub__(self, other): return v(str(self.value - other.value) + " " + self.unit.get_sub(other))
     def __rtruediv__(self, other): return self.__truediv__(other)
     def __rmul__(self, other): return self.__mul__(other)
+    def __pow__(self, other): return v(str(self.value ** other) + " " + self.unit.get_pow(other))
+
     def __truediv__(self, other): 
         if isinstance(other, (int, float)): return v(str(self.value / other) + " " + self.unit.get())
         value = self.value / other.value
@@ -44,18 +46,18 @@ class Unit():
         self.unit = unit
         self.set_power()
 
-        # needs __pow__ method
-
     def check_compatibility(self, other): 
         if self.unit != other.unit.get(): raise Exception(f"Units are not compatible: {self.unit} : {other.unit.get()}")
 
-    def add_power(self): 
-        if self.power == 0: return ""
-        return self.unit + "**" + str(self.power) if self.power != 1 else self.unit
+    def add_power(self, power=None): 
+        if not power: power = self.power
+        if power == 0: return ""
+        return self.unit + "**" + str(power) if power != 1 else self.unit
 
     def get(self): return self.add_power()
     def get_add(self, other): self.check_compatibility(other); return self.add_power()
     def get_sub(self, other): self.check_compatibility(other); return self.add_power()
+    def get_pow(self, other): power = other if self.power == 1 else self.power ** other; return self.add_power(power)
 
     def get_mul(self, other):
         if self.unit == other.unit.unit: 
@@ -66,13 +68,11 @@ class Unit():
     def get_div(self, other):
         if self.unit == other.unit.unit: 
             power = self.power - other.unit.power
-            print("Power: ", power, self.power, other.unit.power)
             return self.unit + "**" + str(power)
         return self.add_power() + "/" + other.unit.add_power()
 
     def set_power(self):
         self.unit = self.unit.replace("**", "^")
-        print("Unit: ", self.unit, self.unit.split("^"))
         if "^" in self.unit: self.unit, self.power = self.unit.split("^")
         else: self.power = 1
         self.power = int(self.power)
