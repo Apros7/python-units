@@ -1,4 +1,5 @@
 import math
+import builtins
 from python_units.constants import UNITS, SPECIAL_UNITS, PREFIXES
 
 ## Relevant constants ##
@@ -7,7 +8,7 @@ pi = math.pi
 ## Relevant functions ##
 def sqrt(value, n=1): pass
 def nsqrt(value, n): pass
-def round(value, digits): value = round(value.value)
+def round(value, digits): copy = value.copy(); copy.round(digits); return copy
 
 ## Value Class ##
 class v():
@@ -16,6 +17,7 @@ class v():
         self.value *= self.unit.get_prefix()
 
     def copy(self): return v(self.__str__())
+    def round(self, digits): self.value = builtins.round(self.value, digits)
     def __str__(self): return str(self.value) + " " + self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))

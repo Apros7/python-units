@@ -35,24 +35,48 @@ print(number_of_soccer_balls_in_room)   #prints: 12107.015768635918
 # Answer 12107 soccer balls in one room
 ```
 
-## Custom functions:
-If you want to use either of those, import them from units-python:
+## Relevant methods:
+- .copy()
 ```
-from units-python import v
-import units-python as up
+my_value = v("9 m**2")
+my_copied_value = my_value.copy()
+print(my_copied_value) # outputs "9 m**2"
+```
+- .round(digits)
+```
+my_value = v("3.1415926535 m")
+my_copied_value = my_value.round(4)
+print(my_copied_value) # outputs "3.1416 m"
+```
+
+- .value: returns the value of the object (float)
+- .unit.get(): returns the unit (string)
+
+## Custom functions:
+We supply certain relevant functions:
+- sqrt(value, n=1): take n-squareroot of value
+```
+import python_units as pu
+from python_units import v
 
 my_value = v("9 m^2")
+my_value_sqrt = pu.sqrt(my_value)
+print(my_value_sqrt) # outputs "3 m"
+```
+- nsqrt(value, n): take n-squareroot of value
+```
 other_value = v("21 m^3")
-
-my_value_sqrt = up.sqrt(my_value)
+my_value_3sqrt = pu.nsqrt(my_value, 3)
 print(my_value_sqrt) # outputs "3 m"
-
-my_value_3sqrt = up.nsqrt(my_value, 3)
-print(my_value_sqrt) # outputs "3 m"
+```
+- round(value, digits): round value number
+```
+third_value = v("3.1415926535 m")
+third_value_rounded = pu.round(third_value, 4)
+print(third_value_rounded) # outputs "3.1416 m"
 ```
 
 
 ## What you, at this time, cannot do:
-- sqrt
 - exp
 - value ** value (value ** constant works!)
