@@ -7,7 +7,7 @@ pi = math.pi
 ## Relevant functions ##
 def sqrt(value, n=1): pass
 def nsqrt(value, n): pass
-def round(value): pass
+def round(value, digits): value = round(value.value)
 
 ## Value Class ##
 class v():
@@ -15,6 +15,7 @@ class v():
         self._get_value(value)
         self.value *= self.unit.get_prefix()
 
+    def copy(self): return v(self.__str__())
     def __str__(self): return str(self.value) + " " + self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))
@@ -46,7 +47,7 @@ class Unit():
         self.unit = unit
         self.set_power()
 
-    def check_compatibility(self, other): 
+    def _check_compatibility(self, other): 
         if self.unit != other.unit.get(): raise Exception(f"Units are not compatible: {self.unit} : {other.unit.get()}")
 
     def add_power(self, power=None): 
@@ -55,8 +56,8 @@ class Unit():
         return self.unit + "**" + str(power) if power != 1 else self.unit
 
     def get(self): return self.add_power()
-    def get_add(self, other): self.check_compatibility(other); return self.add_power()
-    def get_sub(self, other): self.check_compatibility(other); return self.add_power()
+    def get_add(self, other): self._check_compatibility(other); return self.add_power()
+    def get_sub(self, other): self._check_compatibility(other); return self.add_power()
     def get_pow(self, other): power = other if self.power == 1 else self.power ** other; return self.add_power(power)
 
     def get_mul(self, other):
