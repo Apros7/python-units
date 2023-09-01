@@ -11,7 +11,7 @@ In this example, we have a physics problem to solve.
 
 We will solve it using units-python to keep track of our units:
 
-**Physics Example 1**:
+### **Physics Example 1**:
 How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
 
 ```
@@ -40,6 +40,9 @@ print(number_of_soccer_balls_in_room)
 
 # Answer 12107 soccer balls in one room
 ```
+
+### **Physics Example 2**:
+A person is driving 29.15 km/t. How long will they travel in 46.2 minutes?
 
 ## Relevant methods:
 - .copy(): returns copy of value
@@ -86,7 +89,12 @@ third_value = v("3.1415926535 m")
 third_value_rounded = pu.round(third_value, 4)
 print(third_value_rounded) # outputs "3.1416 m"
 ```
+## What units can I use?
+You can find all avaliable units in **python_units.constant.UNITS** & **python_units.constant.SPECIAL_UNITS**.
 
+You can find all avaliable prefixes in **python_units.constant.PREFIXES**.
+
+You can combine prefixes and units in whatever way you like. You can also combine multiple units: 'ton/liter', 'kg*liter/hour' etc.
 
 ## What you, at this time, cannot do:
 - exp

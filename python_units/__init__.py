@@ -83,6 +83,6 @@ class Unit():
 
     def get_prefix(self):
         if self.unit[1:] in UNITS: self.prefix = PREFIXES[self.unit[0]]; self.unit = self.unit[1:]
-        elif self.unit in SPECIAL_UNITS: self.prefix, self.unit = SPECIAL_UNITS
+        elif self.unit in SPECIAL_UNITS: self.prefix, self.unit = SPECIAL_UNITS[self.unit]
         else: self.prefix = 1
         return self.prefix

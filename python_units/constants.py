@@ -4,7 +4,7 @@ UNITS = {
 }
 
 SPECIAL_UNITS = {
-    "ton": [10**6, "g"], "min": [60, "s"], "hours": [60*60, "s"], "h": [60*60, "s"]
+    "ton": [10**6, "g"], "min": [60, "s"], "hours": [60*60, "s"], "hour": [60*60, "s"], "h": [60*60, "s"]
 }
 
 PREFIXES = {
