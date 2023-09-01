@@ -1,4 +1,5 @@
 # UnitsPythonPackage
+### Python package built with focus on simplicity, ease of use & readability.
 ## Installation
 Install with: 
 ```
