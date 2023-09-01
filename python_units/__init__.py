@@ -6,8 +6,8 @@ from python_units.constants import UNITS, SPECIAL_UNITS, PREFIXES
 pi = math.pi
 
 ## Relevant functions ##
-def sqrt(value, n=1): pass
-def nsqrt(value, n): pass
+def sqrt(value, n=1): copy = value.copy(); copy.sqrt(n); return copy
+def nsqrt(value, n): copy = value.copy(); copy.sqrt(n); return copy
 def round(value, digits): copy = value.copy(); copy.round(digits); return copy
 
 ## Value Class ##
@@ -18,6 +18,7 @@ class v():
 
     def copy(self): return v(self.__str__())
     def round(self, digits): self.value = builtins.round(self.value, digits)
+    def sqrt(self, n=1): return self.__pow__(1/n)
     def __str__(self): return str(self.value) + " " + self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))
@@ -60,7 +61,7 @@ class Unit():
     def get(self): return self.add_power()
     def get_add(self, other): self._check_compatibility(other); return self.add_power()
     def get_sub(self, other): self._check_compatibility(other); return self.add_power()
-    def get_pow(self, other): power = other if self.power == 1 else self.power ** other; return self.add_power(power)
+    def get_pow(self, other): power = other if self.power == 1 else self.power * other; return self.add_power(power)
 
     def get_mul(self, other):
         if self.unit == other.unit.unit: 
@@ -78,7 +79,7 @@ class Unit():
         self.unit = self.unit.replace("**", "^")
         if "^" in self.unit: self.unit, self.power = self.unit.split("^")
         else: self.power = 1
-        self.power = int(self.power)
+        self.power = float(self.power)
 
     def get_prefix(self):
         if self.unit[1:] in UNITS: self.prefix = PREFIXES[self.unit[0]]; self.unit = self.unit[1:]
