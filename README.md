@@ -43,7 +43,9 @@ print(number_of_soccer_balls_in_room)
 ```
 
 ### **Physics Example 2**:
-A person is driving 29.15 km/t. How long will they travel in 46.2 minutes?
+A runner has been running 96 km in 8 hours. 
+1) What are their average page?
+2) If the runner continues at this pace, how far will they go in 46.2 minutes?
 
 ## Relevant methods:
 - .copy(): returns copy of value
