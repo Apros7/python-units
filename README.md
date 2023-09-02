@@ -14,38 +14,13 @@ We will solve it using units-python to keep track of our units:
 
 ### **Physics Example 1**:
 How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
-
-```
-from python_units import v
-import python_units as pu
-
-soccer_ball_diameter = v("22 cm")
-soccer_ball_radius = soccer_ball_diameter / 2
-soccer_ball_volume = 4/3 * pu.pi * soccer_ball_radius ** 3
-print(soccer_ball_volume)               
-
-        #prints: 0.005575279762570685 m**3
-
-room_length = v("5 m")
-room_width = v("5 m")
-room_height = v("2.7 m")
-room_volume = room_length * room_width * room_height
-print(room_volume)                      
-
-        #prints: 67.5 m**3
-
-number_of_soccer_balls_in_room = room_volume / soccer_ball_volume
-print(number_of_soccer_balls_in_room)   
-
-        #prints: 12107.015768635918
-
-# Answer 12107 soccer balls in one room
-```
+[See the example code here](https://github.com/Apros7/python-units/blob/main/physics_example1.py)
 
 ### **Physics Example 2**:
 A runner has been running 96 km in 8 hours. 
 1) What are their average page?
 2) If the runner continues at this pace, how far will they go in 46.2 minutes?
+[See the example code here](https://github.com/Apros7/python-units/blob/main/physics_example2.py)
 
 ## Relevant methods:
 - .copy(): returns copy of value
@@ -68,6 +43,7 @@ print(my_value_sqrt) # outputs "3 m"
 ```
 - .value: returns the value of the object (float)
 - .unit.get(): returns the unit (string)
+- .to(str): input string with desired unit: "km/h", "tons", "hours". Returns string with value and unit
 
 ## Custom functions:
 We supply certain relevant functions:

@@ -47,36 +47,39 @@ class v():
     
     def _get_value_fraction(self, value):
         self.value = 1
-        self.unit = Unit("")
+        nom_unit = Unit("")
         for nominator in self.nominators:
             if len(nominator.split()) == 1: 
-                self.handle_len_1_value(nominator, "mul")
+                nom_unit = self.handle_len_1_value(nominator, "mul", unit_obj = nom_unit)
             else: 
                 value_obj = v(nominator)
                 self.value *= value_obj.value
-                self.unit *= value_obj.unit
+                nom_unit *= value_obj.unit
 
+        denom_unit = Unit("")
         if self.denominators:
             for denominator in self.denominators:
                 if len(denominator.split()) == 1: 
-                    self.handle_len_1_value(denominator, "div")
+                    denom_unit = self.handle_len_1_value(denominator, "div", unit_obj = denom_unit)
                 else: 
                     value_obj = v(denominator)
                     self.value /= value_obj.value
-                    self.unit /= value_obj.unit
+                    denom_unit *= value_obj.unit
+        self.unit = nom_unit / denom_unit
 
-    def handle_len_1_value(self, value, method):
+    def handle_len_1_value(self, value, method, unit_obj):
         if self.is_hidden_float(value): 
             if method == "mul": self.value *= value
             else: self.value /= value
         else: 
             if value not in UNITS:
                 value_obj = v(f"1 {value}")
-                if method == "mul": self.value *= value_obj.value; self.unit *= value_obj.unit
-                else: self.value /= value_obj.value; self.unit /= value_obj.unit
+                unit_obj *= value_obj.unit
+                if method == "mul": self.value *= value_obj.value
+                else: self.value /= value_obj.value
             else:
-                if method == "mul": self.unit *= Unit(value)
-                else: self.unit /= Unit(value)
+                unit_obj *= Unit(value)
+        return unit_obj
 
     def is_hidden_float(self, value):
         try: float(value); return True
@@ -111,15 +114,15 @@ class Unit():
         if not isinstance(other, Unit): raise Exception(f"Other must be Unit: is {type(other)}")
         if self.unit == other.unit: 
             power = self.power + other.power
-            return self.unit + "**" + str(power)
-        elif len(self.unit) == 0: return other
+            return Unit(self.unit + "**" + str(power))
+        elif len(self.unit) == 0: return Unit(other.add_power())
         return Unit(self.add_power() + "*" + other.add_power())
 
     def __truediv__(self, other): 
         if not isinstance(other, Unit): raise Exception(f"Other must be Unit: is {type(other)}")
         if self.unit == other.unit: 
             power = self.power - other.power
-            return self.unit + "**" + str(power)
+            return Unit(self.unit + "**" + str(power))
         elif len(self.unit) == 0: return other
         return Unit(self.add_power() + "/" + other.add_power())
 
