@@ -23,6 +23,8 @@ def remove_excess_spaces(input_string):
     i = 0
     while i < len(input_string):
         if input_string[i] == " ":
+            if i + 1 > len(input_string) - 1:
+                break
             if input_string[i+1] in ('*', '/') or input_string[i-1] in ('*', '/'):
                 i += 1
                 continue

@@ -89,8 +89,9 @@ class v():
 
     def _get_single_value(self, value):
         split = value.split()
-        if len(split) != 2: raise Exception(f"The input should be 1 number and 1 unit: '5 m', '18.23 m/s', etc.\nYou gave this input: {value}")
-        self.value, self.unit = float(split[0]), Unit(split[1])
+        if len(split) not in [1, 2]: raise Exception(f"The input should be 1 number and 1 unit: '5 m', '18.23 m/s', etc.\nYou gave this input: {value}")
+        if len(split) == 1: self.value, self.unit = float(split[0]), Unit("")
+        else: self.value, self.unit = float(split[0]), Unit(split[1])
         self.value *= self.unit.prefix
 
     def to(self, desired_unit):
@@ -111,7 +112,7 @@ class Unit():
     def _check_if_unit_class(self, other):
         if not isinstance(other, Unit): raise Exception(f"Other must be Unit, but is {type(other)}")
 
-    def _non_empty_denominators(self): return self.denominators != ['']
+    def _non_empty_denominators(self): return self.denominators != [''] and self.denominators != []
 
     def __mul__(self, other): 
         self._check_if_unit_class(other)
@@ -201,4 +202,30 @@ class Unit():
         return prefix, unit
 
     def simplify(self):
-        pass
+        nominator_dict, denominator_dict = self.get_simplify_dicts()
+        simplified_nominator_dict = self.subtract_dicts(nominator_dict, denominator_dict)
+        simplified_denominator_dict = self.subtract_dicts(denominator_dict, nominator_dict)
+        self.set_fraction_values(simplified_nominator_dict, simplified_denominator_dict)
+
+    def get_simplify_dicts(self): 
+        return (self.get_simplify_dict(self.nominators, self.nominators_powers), self.get_simplify_dict(self.denominators, self.denominators_powers))
+
+    def get_simplify_dict(self, units, powers): 
+        simplify_dict = {}
+        for unit, power in zip(units, powers):
+            if unit not in simplify_dict: simplify_dict[unit] = power
+            else: simplify_dict[unit] += power
+        return simplify_dict
+
+    def subtract_dicts(self, dict1, dict2):
+        updated_dict = {}
+        for key in dict1.keys():
+            if key in dict2: updated_dict[key] = dict1[key] - dict2[key]
+            else: updated_dict[key] = dict1[key]
+        return {key: value for (key, value) in updated_dict.items() if value > 0}
+
+    def set_fraction_values(self, nominator_dict, denominator_dict):
+        self.nominators = list(nominator_dict.keys())
+        self.nominators_powers = list(nominator_dict.values())
+        self.denominators = list(denominator_dict.keys())
+        self.denominators_powers = list(denominator_dict.values())
