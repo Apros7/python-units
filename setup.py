@@ -15,7 +15,7 @@ setup(
   author = 'Lucas Vilsen',          
   author_email = 'lucas.vilsen@gmail.com',    
   url = 'https://github.com/Apros7/python-units',
-  download_url = 'https://github.com/Apros7/python-units/archive/refs/tags/v0.2.0.tar.gz', # update with new release
+  download_url = 'https://github.com/Apros7/python-units/archive/refs/tags/v0.3.0.tar.gz', # update with new release
   keywords = ['units', 'physics', 'math'],
   classifiers=[
     'Development Status :: 3 - Alpha',      # "3 - Alpha", "4 - Beta", "5 - Production/Stable"

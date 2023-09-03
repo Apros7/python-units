@@ -1,3 +1,5 @@
+from units_python import v
+
 ## PHYSICS EXAMPLE 2 ##
 
 # A runner has been running 96 km in 8 hours. 
@@ -5,8 +7,6 @@
 # 2) If the runner continues at this pace, how far will they go in 46.2 minutes?
 
 ##                   ##
-
-from units_python import v
 
 # # 1) What are their average page?
 # # Method 1: Making two difference Value instances:

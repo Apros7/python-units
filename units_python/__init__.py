@@ -2,8 +2,8 @@ import math
 import builtins
 import re 
 
-from functions import fraction_decoder
-from constants import UNITS, SPECIAL_UNITS, PREFIXES
+from units_python.functions import fraction_decoder
+from units_python.constants import UNITS, SPECIAL_UNITS, PREFIXES
 
 ## Relevant constants ##
 pi = math.pi

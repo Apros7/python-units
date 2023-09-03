@@ -1,10 +1,11 @@
+import units_python as up
+from units_python import v
+
 ## EXAMPLE ##
 
 # How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
 
 ##         ##
-import units_python as up
-from units_python import v
 
 soccer_ball_diameter = v("22 cm")
 soccer_ball_radius = soccer_ball_diameter / 2
