@@ -14,9 +14,9 @@ pip install python_units --upgrade
 ```
 ## How to use:
 
-In this example, we have a physics problem to solve. 
+In these examples, we have a physics problem to solve. 
 
-We will solve it using units-python to keep track of our units:
+We will solve it using python_units to keep track of our units:
 
 ### **Physics Example 1**:
 How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
