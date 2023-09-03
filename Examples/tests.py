@@ -16,4 +16,3 @@ unit_test = [
 ]
 
 print(unit_test)
-print(value1 * value2)
