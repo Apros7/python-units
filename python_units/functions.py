@@ -2,6 +2,7 @@ import re
 
 def fraction_decoder(fraction):
     fraction = remove_excess_spaces(fraction)
+
     if '/' in fraction: 
         parts = fraction.split('/')
         if len(parts) != 2: raise ValueError("Input must have exactly one '/' character to separate numerator and denominator.")
@@ -9,13 +10,13 @@ def fraction_decoder(fraction):
         parts = [fraction, ""]
     
     pattern = r'(?<=[A-Za-z0-9])\*(?=[A-Za-z0-9])'
-    numerator = re.split(pattern, parts[0])
+    nominator = re.split(pattern, parts[0])
     denominator = re.split(pattern, parts[1])
     
-    numerator = [item.strip().strip("()") for item in numerator if item.strip()]
+    nominator = [item.strip().strip("()") for item in nominator if item.strip()]
     denominator = [item.strip().strip("()") for item in denominator if item.strip()]
     
-    return numerator, denominator
+    return nominator, denominator
 
 def remove_excess_spaces(input_string):
     result = []
