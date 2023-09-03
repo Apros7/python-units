@@ -6,11 +6,11 @@ If your unit is missing, open a PR with your constant, the appropriate prefix an
 ## Installation
 Install with: 
 ```
-pip install python_units
+pip install units_python
 ```
 If you have already installed this package, but want the latest version use:
 ```
-pip install python_units --upgrade
+pip install units_python --upgrade
 ```
 ## How to use:
 
