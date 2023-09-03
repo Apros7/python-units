@@ -6,9 +6,12 @@ If your unit is missing, open a PR with your constant, the appropriate prefix an
 ## Installation
 Install with: 
 ```
-pip install units-python
+pip install python_units
 ```
-
+If you have already installed this package, but want the latest version use:
+```
+pip install python_units --upgrade
+```
 ## How to use:
 
 In this example, we have a physics problem to solve. 
@@ -17,13 +20,13 @@ We will solve it using units-python to keep track of our units:
 
 ### **Physics Example 1**:
 How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
-[See the example code here](https://github.com/Apros7/python-units/blob/main/physics_example1.py)
+[See the example code here](https://github.com/Apros7/python-units/blob/main/Examples/physics_example1.py)
 
 ### **Physics Example 2**:
 A runner has been running 96 km in 8 hours. 
 1) What are their average page?
 2) If the runner continues at this pace, how far will they go in 46.2 minutes?
-[See the example code here](https://github.com/Apros7/python-units/blob/main/physics_example2.py)
+[See the example code here](https://github.com/Apros7/python-units/blob/main/Examples/physics_example2.py)
 
 ## Relevant methods:
 - .copy(): returns copy of value
