@@ -1,5 +1,6 @@
 # UnitsPythonPackage
 ### Python package built with focus on simplicity, ease of use & readability.
+Check out SPECIAL_UNITS in python_units/constants if you are missing some constants.py, and open a PR with your constant added with the appropriate prefix and SI-unit.
 ## Installation
 Install with: 
 ```
