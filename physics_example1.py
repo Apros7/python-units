@@ -1,4 +1,8 @@
 ## EXAMPLE ##
+
+# How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
+
+##         ##
 from python_units import v
 import python_units as pu
 
