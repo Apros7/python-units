@@ -1,6 +1,6 @@
 
 UNITS = {
-    "m": "meter", "s": "second", "g": "gram", "l": "liter"
+    "m": "meter", "s": "second", "g": "gram", "l": "liter", "A": "ampere", "K": "kelvin", "mol": "mole", "cd": "candela"
 }
 
 SPECIAL_UNITS = {
