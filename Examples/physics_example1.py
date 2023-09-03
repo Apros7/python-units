@@ -3,12 +3,12 @@
 # How many soccer balls (diameter of 22 cm) can fit inside a 5 x 5 x 2.7 meter room?
 
 ##         ##
-from python_units import v
-import python_units as pu
+import units_python as up
+import units_python.v as v
 
 soccer_ball_diameter = v("22 cm")
 soccer_ball_radius = soccer_ball_diameter / 2
-soccer_ball_volume = 4/3 * pu.pi * soccer_ball_radius ** 3
+soccer_ball_volume = 4/3 * up.pi * soccer_ball_radius ** 3
 print(soccer_ball_volume)               
 
         #prints: 0.005575279762570685 m**3

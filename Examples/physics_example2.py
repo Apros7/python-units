@@ -6,7 +6,7 @@
 
 ##                   ##
 
-from python_units import v
+from units_python import v
 
 # # 1) What are their average page?
 # # Method 1: Making two difference Value instances:

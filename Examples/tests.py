@@ -1,4 +1,4 @@
-from python_units import v
+import units_python.v as v
 
 value = v("1000 dm^3")
 print(value)
