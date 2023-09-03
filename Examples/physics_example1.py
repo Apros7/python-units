@@ -4,7 +4,7 @@
 
 ##         ##
 import units_python as up
-import units_python.v as v
+from units_python import v
 
 soccer_ball_diameter = v("22 cm")
 soccer_ball_radius = soccer_ball_diameter / 2
