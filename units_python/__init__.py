@@ -8,9 +8,10 @@ import re
 # keep paramter to avoid getting prefix
 # Get raw
 # value will be displayed as float + self.10, to avoid floating point errors
+# ten exponent should work for mul and div
 
 from functions import fraction_decoder
-from constants import UNITS, SPECIAL_UNITS, PREFIXES
+from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
@@ -31,7 +32,8 @@ class v():
     def copy(self): return v(self.__str__())
     def round(self, digits): self.value = builtins.round(self.value, digits)
     def sqrt(self, n=2): return self.__pow__(1/n)
-    def __str__(self): return str(self.value) + " " + self.unit.get()
+    def raw(self): return str(self.value * 10 ** self.ten_exponent) + " " +self.unit.get()
+    def __str__(self): return str(self.value) + " " + self._get_ten_exponent() + " " +self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))
     def __sub__(self, other): return v(str(self.value - other.value) + " " + self.unit.get_sub(other))
@@ -50,6 +52,10 @@ class v():
         value = self.value / other.value
         unit = self.unit / other.unit
         return v(str(value) + " " + unit.get())
+
+    def _get_ten_exponent(self):
+        if self.ten_exponent != 0: return "* 10**" + str(self.ten_exponent)
+        return None
 
     def _get_value(self, value): 
         if len(self.nominators) and not self.denominators: self._get_single_value(value)
@@ -101,7 +107,10 @@ class v():
         if len(split) == 1: self.value, self.unit = float(split[0]), Unit("")
         else: self.value, self.unit = float(split[0]), Unit(split[1])
         self.value *= self.unit.prefix
-        # self.ten_exponent
+        self.ten_exponent = self.unit.ten_exponent
+
+    def _calibrate_ten_exponent(self):
+        pass
 
     def to(self, desired_unit):
         desired_unit_obj = v(f"1 {desired_unit}")
@@ -161,6 +170,7 @@ class Unit():
         self.set_unit(unit)
         self.set_powers()
         self.prefix = self.get_total_prefix()
+        self.ten_exponent = self.get_total_ten_exponent()
         self.unit = self.construct_unit()
 
     def set_unit(self, unit):
@@ -193,7 +203,7 @@ class Unit():
         if "**" in unit: unit, power = unit.split("**")
         else: power = 1
         return (unit, float(power))
-    
+
     def get_total_prefix(self):
         nominator_prefixes = [self.get_prefix(unit, power) for unit, power in zip(self.nominators, self.nominators_powers)]
         nominator_prefix = math.prod([prefix for (prefix, unit) in nominator_prefixes])
@@ -204,11 +214,26 @@ class Unit():
         return nominator_prefix / denominator_prefix
 
     def get_prefix(self, unit, power):
-        if unit[1:] in UNITS: prefix = PREFIXES[unit[0]]; unit = unit[1:]
-        elif unit in SPECIAL_UNITS: prefix, unit = SPECIAL_UNITS[unit]
+        if unit in SPECIAL_UNITS: prefix, unit = SPECIAL_UNITS[unit]
         else: prefix = 1
         prefix **= power
         return prefix, unit
+    
+    def get_total_ten_exponent(self):
+        nominator_prefixes = [self.get_ten_exponent(unit, power) for unit, power in zip(self.nominators, self.nominators_powers)]
+        nominator_prefix = sum([prefix for (prefix, unit) in nominator_prefixes])
+        self.nominators = [unit for (prefix, unit) in nominator_prefixes]
+        denominator_prefixes = [self.get_ten_exponent(unit, power) for unit, power in zip(self.denominators, self.denominators_powers)]
+        denominator_prefix = sum([prefix for (prefix, unit) in denominator_prefixes])
+        self.denominators = [unit for (prefix, unit) in denominator_prefixes]
+        return nominator_prefix - denominator_prefix
+
+    def get_ten_exponent(self, unit, power):
+        if unit[1:] in UNITS: ten_exponent = TEN_EXPONENTS[unit[0]]; unit = unit[1:]
+        elif unit in SPECIAL_TEN_EXPONENTS: ten_exponent, unit = SPECIAL_TEN_EXPONENTS[unit]
+        else: ten_exponent = 0
+        ten_exponent *= power
+        return ten_exponent, unit
 
     def simplify(self):
         nominator_dict, denominator_dict = self.get_simplify_dicts()

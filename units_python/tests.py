@@ -46,4 +46,7 @@ def run_tests():
     print("method test: ", method_test)
 
 if __name__ == "__main__":
-    run_tests()
+    value1 = v("18 km")
+    print(value1)
+    print(value1.raw())
+    # run_tests()
