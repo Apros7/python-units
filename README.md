@@ -33,27 +33,17 @@ A runner has been running 96 km in 8 hours.
 [See the example code here](https://github.com/Apros7/python-units/blob/main/Examples/physics_example2.py)
 
 ## Relevant methods:
-- .copy(): returns copy of value
-```
-my_value = v("9 m**2")
-my_copied_value = my_value.copy()
-print(my_copied_value) # outputs "9 m**2"
-```
-- .round(digits): round value to number of digits (returns nothing)
-```
-my_value = v("3.1415926535 m")
-my_value.round(4)
-print(my_value) # outputs "3.1416 m"
-```
-- .sqrt(n=1): takes n-squareroot of value (returns changed value)
-```
-my_value = v("9 m**2")
-my_value_sqrt = my_value.sqrt(2)
-print(my_value_sqrt) # outputs "3 m"
-```
-- .value: returns the value of the object (float)
-- .unit.get(): returns the unit (string)
-- .to(str): input string with desired unit: "km/h", "tons", "hours". Returns string with value and unit
+- .copy() -> Value Object: returns copy of value
+- .round(digits) -> None: round value to number of digits (returns nothing)
+- .sqrt(n=1) -> Value Object: takes n-squareroot of value (returns changed value)
+- .value -> Float: returns the value of the object
+- .unit.get() -> String: returns the unit
+- .to(str) -> String: input string with desired unit: "km/h", "tons", "hours". Returns string with value and unit
+- .change_unit(str) -> None: change unit of value to str e.g. if it was not done corectly
+- .raw() -> Value Object: the string representation has ten exponents. This gives the value without any ten exponents.
+
+
+[See this for an example of how to use some of the functions]
 
 ## Custom functions:
 We supply certain relevant functions:
