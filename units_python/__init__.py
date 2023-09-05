@@ -6,8 +6,8 @@ import re
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
 
-from functions import fraction_decoder
-from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+from units_python.functions import fraction_decoder
+from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
