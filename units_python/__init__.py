@@ -32,7 +32,8 @@ class v():
     def copy(self): return v(self.__str__())
     def round(self, digits): self.value = builtins.round(self.value, digits)
     def sqrt(self, n=2): return self.__pow__(1/n)
-    def raw(self): return str(self.value * 10 ** self.ten_exponent) + " " +self.unit.get()
+    def raw(self): return str(self.raw_value()) + " " +self.unit.get()
+    def raw_value(self): return self.value * 10 ** self.ten_exponent
     def __str__(self): return str(self.value) + " " + self._get_ten_exponent() + " " +self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))

@@ -36,7 +36,7 @@ A runner has been running 96 km in 8 hours.
 - .copy() -> Value Object: returns copy of value
 - .round(digits) -> None: round value to number of digits (returns nothing)
 - .sqrt(n=1) -> Value Object: takes n-squareroot of value (returns changed value)
-- .value -> Float: returns the value of the object
+- .raw_value() -> Float: returns the value of the object
 - .unit.get() -> String: returns the unit
 - .to(str) -> String: input string with desired unit: "km/h", "tons", "hours". Returns string with value and unit
 - .change_unit(str) -> None: change unit of value to str e.g. if it was not done corectly
