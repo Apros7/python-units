@@ -5,10 +5,6 @@ import re
 ## Todo:
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
-# keep paramter to avoid getting prefix
-# Get raw
-# value will be displayed as float + self.10, to avoid floating point errors
-# ten exponent should work for mul and div
 
 from functions import fraction_decoder
 from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS

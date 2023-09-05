@@ -32,6 +32,11 @@ A runner has been running 96 km in 8 hours.
 
 [See the example code here](https://github.com/Apros7/python-units/blob/main/Examples/physics_example2.py)
 
+## Value Object parameters:
+The v object parameters are:
+- value: string of value and desired unit split by a space
+- ten_exponent (optional): float of the ten_exponent i.e: 1.8 * 10 ** 8 m would be v("1.8 m", 8). 
+
 ## Relevant methods:
 - .copy() -> Value Object: returns copy of value
 - .round(digits) -> None: round value to number of digits (returns nothing)
