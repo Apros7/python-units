@@ -23,10 +23,12 @@ def round(value, digits): copy = value.copy(); copy.round(digits); return copy
 
 ## Value Class ##
 class v():
-    def __init__(self, value):
+    def __init__(self, value, ten_exponent = 0):
+        self.ten_exponent = ten_exponent
         value = value.replace("^", "**")
         self.nominators, self.denominators = fraction_decoder(value)
         self._get_value(value)
+        self._calibrate_ten_exponent()
 
     def change_unit(self, str): self.unit = Unit(str)
     def copy(self): return v(self.__str__())
@@ -34,29 +36,29 @@ class v():
     def sqrt(self, n=2): return self.__pow__(1/n)
     def raw(self): return str(self.raw_value()) + " " +self.unit.get()
     def raw_value(self): return self.value * 10 ** self.ten_exponent
-    def __str__(self): return str(self.value) + " " + self._get_ten_exponent() + " " +self.unit.get()
+    def __str__(self): return str(self.value) + " " + self._get_ten_exponent() +self.unit.get()
     def __eq__(self, other): return str(self) == other
-    def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))
-    def __sub__(self, other): return v(str(self.value - other.value) + " " + self.unit.get_sub(other))
+    def __add__(self, other): return v(str(self.raw_value() + other.raw_value()) + " " + self.unit.get_add(other))
+    def __sub__(self, other): return v(str(self.raw_value() - other.raw_value()) + " " + self.unit.get_sub(other))
     def __rtruediv__(self, other): return self.__truediv__(other)
     def __rmul__(self, other): return self.__mul__(other)
     def __pow__(self, other): return v(str(self.value ** other) + " " + self.unit ** other)
 
     def __mul__(self, other): 
-        if isinstance(other, (int, float)): return v(str(self.value * other) + " " + self.unit.get())
+        if isinstance(other, (int, float)): return v(str(self.value * other) + " " + self.unit.get(), self.ten_exponent)
         value = self.value * other.value
         unit = self.unit * other.unit
-        return v(str(value) + " " + unit.get())
+        return v(str(value) + " " + unit.get(), ten_exponent = self.ten_exponent + other.ten_exponent)
 
     def __truediv__(self, other): 
-        if isinstance(other, (int, float)): return v(str(self.value / other) + " " + self.unit.get())
+        if isinstance(other, (int, float)): return v(str(self.value / other) + " " + self.unit.get(), self.ten_exponent)
         value = self.value / other.value
         unit = self.unit / other.unit
-        return v(str(value) + " " + unit.get())
+        return v(str(value) + " " + unit.get(), ten_exponent = self.ten_exponent - other.ten_exponent)
 
     def _get_ten_exponent(self):
-        if self.ten_exponent != 0: return "* 10**" + str(self.ten_exponent)
-        return None
+        if self.ten_exponent != 0: return "* 10**" + str(self.ten_exponent) + " "
+        return " "
 
     def _get_value(self, value): 
         if len(self.nominators) and not self.denominators: self._get_single_value(value)
@@ -108,7 +110,7 @@ class v():
         if len(split) == 1: self.value, self.unit = float(split[0]), Unit("")
         else: self.value, self.unit = float(split[0]), Unit(split[1])
         self.value *= self.unit.prefix
-        self.ten_exponent = self.unit.ten_exponent
+        self.ten_exponent += self.unit.ten_exponent
 
     def _calibrate_ten_exponent(self):
         pass

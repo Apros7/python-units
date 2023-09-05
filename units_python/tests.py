@@ -6,14 +6,15 @@ def run_tests():
     value1 = v("5 km")
     value2 = v("519 m")
     factor = value1 / value2
+    factor.round(8)
 
     unit_test = [
-        value == "1.0 m**3.0",
-        value1 + value2 == "5519.0 m",
-        value1 - value2 == "4481.0 m",
-        value1 * value2 == f"{float(5000 * 519)} m**2.0",
-        value1 * 2 == f"{float(5000 * 2)} m",
-        value1 * factor == f"{5000 * 9.633911368015415} m"
+        value.raw() == "1.0 m**3.0",
+        (value1 + value2).raw() == "5519.0 m",
+        (value1 - value2).raw() == "4481.0 m",
+        (value1 * value2).raw() == f"{float(5000 * 519)} m**2.0",
+        (value1 * 2).raw() == f"{float(5000 * 2)} m",
+        (value1 * factor).raw() == f"{float(5000 * factor.raw_value())} m"
     ]
     print("basic value instance operations: ", unit_test)
 
@@ -32,16 +33,16 @@ def run_tests():
     speed = v("90 mph")
     time = v("2 hours")#, keep_unit = True)
     distance = speed / time
-    # print(distance) # outputs "0.0125 mph/s"
+    print(distance) # outputs "0.0125 mph/s"
     distance = speed / 2
-    # distance.change_unit("miles")
-    # print(distance)
+    distance.change_unit("miles")
+    print(distance)
 
     method_test = [
-        my_copied_value == "9.0 m**2.0",
-        my_value_sqrt == "3.0 m",
-        my_value_3sqrt == "3.0 m",
-        third_value == "3.1416 m",
+        my_copied_value.raw() == "9.0 m**2.0",
+        my_value_sqrt.raw() == "3.0 m",
+        my_value_3sqrt.raw() == "3.0 m",
+        third_value.raw() == "3.1416 m",
     ]
     print("method test: ", method_test)
 
@@ -49,4 +50,4 @@ if __name__ == "__main__":
     value1 = v("18 km")
     print(value1)
     print(value1.raw())
-    # run_tests()
+    run_tests()
