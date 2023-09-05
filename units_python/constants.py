@@ -14,6 +14,11 @@ PREFIXES = {
     "da": 10**1, "h": 10**2, "k": 10**3, "M": 10**6, "G": 10**9, "T": 10**12, "P": 10**15
 }
 
+TEN_EXPONENTS = {
+    "d": -1, "c": -2, "m": -3, "µ": -6, "n": -9, "p": -12, "f": -15,
+    "da": 1, "h": 2, "k": 3, "M": 6, "G": 9, "T": 12, "P": 15
+}
+
 PREFIXES_SINGLE_LETTER = {
     "d": "deci", "c": "centi", "m": "milli", "µ": "micro", "n": "nano", "p": "pico", "f": "femto",
     "da": "deca", "h": "hecto", "k": "kilo", "M": "mega", "G": "giga", "T": "tera", "P": "peta"

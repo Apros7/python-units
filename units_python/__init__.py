@@ -2,15 +2,22 @@ import math
 import builtins
 import re 
 
-from units_python.functions import fraction_decoder
-from units_python.constants import UNITS, SPECIAL_UNITS, PREFIXES
+## Todo:
+# Able to add units locally to a config file 
+# that will be loaded when units_python is imported
+# keep paramter to avoid getting prefix
+# Get raw
+# value will be displayed as float + self.10, to avoid floating point errors
+
+from functions import fraction_decoder
+from constants import UNITS, SPECIAL_UNITS, PREFIXES
 
 ## Relevant constants ##
 pi = math.pi
 
 ## Relevant functions ##
-def sqrt(value, n=1): copy = value.copy(); copy.sqrt(n); return copy
-def nsqrt(value, n): copy = value.copy(); copy.sqrt(n); return copy
+def sqrt(value, n=2): return value.sqrt(n)
+def nsqrt(value, n): return value.sqrt(n)
 def round(value, digits): copy = value.copy(); copy.round(digits); return copy
 
 ## Value Class ##
@@ -20,9 +27,10 @@ class v():
         self.nominators, self.denominators = fraction_decoder(value)
         self._get_value(value)
 
+    def change_unit(self, str): self.unit = Unit(str)
     def copy(self): return v(self.__str__())
     def round(self, digits): self.value = builtins.round(self.value, digits)
-    def sqrt(self, n=1): return self.__pow__(1/n)
+    def sqrt(self, n=2): return self.__pow__(1/n)
     def __str__(self): return str(self.value) + " " + self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.value + other.value) + " " + self.unit.get_add(other))
@@ -52,7 +60,7 @@ class v():
         nom_unit = Unit("")
         for nominator in self.nominators:
             if len(nominator.split()) == 1: 
-                nom_unit = self.handle_len_1_value(nominator, "mul", unit_obj = nom_unit)
+                nom_unit = self._handle_len_1_value(nominator, "mul", unit_obj = nom_unit)
             else: 
                 value_obj = v(nominator)
                 self.value *= value_obj.value
@@ -62,15 +70,15 @@ class v():
         if self.denominators:
             for denominator in self.denominators:
                 if len(denominator.split()) == 1: 
-                    denom_unit = self.handle_len_1_value(denominator, "div", unit_obj = denom_unit)
+                    denom_unit = self._handle_len_1_value(denominator, "div", unit_obj = denom_unit)
                 else: 
                     value_obj = v(denominator)
                     self.value /= value_obj.value
                     denom_unit *= value_obj.unit
         self.unit = nom_unit / denom_unit
 
-    def handle_len_1_value(self, value, method, unit_obj):
-        if self.is_hidden_float(value): 
+    def _handle_len_1_value(self, value, method, unit_obj):
+        if self._is_hidden_float(value): 
             if method == "mul": self.value *= value
             else: self.value /= value
         else: 
@@ -83,7 +91,7 @@ class v():
                 unit_obj *= Unit(value)
         return unit_obj
 
-    def is_hidden_float(self, value):
+    def _is_hidden_float(self, value):
         try: float(value); return True
         except: return False
 
@@ -93,6 +101,7 @@ class v():
         if len(split) == 1: self.value, self.unit = float(split[0]), Unit("")
         else: self.value, self.unit = float(split[0]), Unit(split[1])
         self.value *= self.unit.prefix
+        # self.ten_exponent
 
     def to(self, desired_unit):
         desired_unit_obj = v(f"1 {desired_unit}")
