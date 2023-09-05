@@ -26,12 +26,13 @@ def run_tests():
 
     other_value = v("27 m^3")
     my_value_3sqrt = nsqrt(other_value, 3)
+    print(my_value_3sqrt)
 
     third_value = v("3.1415926535 m")
     third_value.round(4)
 
     speed = v("90 mph")
-    time = v("2 hours")#, keep_unit = True)
+    time = v("2 hours")
     distance = speed / time
     print(distance) # outputs "0.0125 mph/s"
     distance = speed / 2
@@ -47,7 +48,4 @@ def run_tests():
     print("method test: ", method_test)
 
 if __name__ == "__main__":
-    value1 = v("18 km")
-    print(value1)
-    print(value1.raw())
     run_tests()

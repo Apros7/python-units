@@ -38,7 +38,7 @@ class v():
     def __sub__(self, other): return v(str(self.raw_value() - other.raw_value()) + " " + self.unit.get_sub(other))
     def __rtruediv__(self, other): return self.__truediv__(other)
     def __rmul__(self, other): return self.__mul__(other)
-    def __pow__(self, other): return v(str(self.value ** other) + " " + self.unit ** other)
+    def __pow__(self, other): return v(str(self.raw_value() ** other) + " " + self.unit ** other)
 
     def __mul__(self, other): 
         if isinstance(other, (int, float)): return v(str(self.value * other) + " " + self.unit.get(), self.ten_exponent)
@@ -107,9 +107,15 @@ class v():
         else: self.value, self.unit = float(split[0]), Unit(split[1])
         self.value *= self.unit.prefix
         self.ten_exponent += self.unit.ten_exponent
+        self._calibrate_ten_exponent()
 
     def _calibrate_ten_exponent(self):
-        pass
+        while self.value > 10:
+            self.value /= 10
+            self.ten_exponent += 1
+        while self.value < 1:
+            self.value *= 10
+            self.ten_exponent -= 1
 
     def to(self, desired_unit):
         desired_unit_obj = v(f"1 {desired_unit}")

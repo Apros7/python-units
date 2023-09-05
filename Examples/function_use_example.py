@@ -23,4 +23,4 @@ distance = speed / time
 print(distance) # outputs "0.0125 mph/s"
 distance = speed / 2
 distance.change_unit("miles")
-print(distance)
+print(distance) # ouputs "45.0 miles"
