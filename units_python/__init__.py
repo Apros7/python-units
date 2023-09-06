@@ -6,11 +6,11 @@ import re
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
 
-# from units_python.functions import fraction_decoder
-# from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+from units_python.functions import fraction_decoder
+from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
-from functions import fraction_decoder
-from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+# from functions import fraction_decoder
+# from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
@@ -37,6 +37,7 @@ class v():
     def raw_value(self): return self.value * 10 ** self.ten_exponent
     def abs(self): copy = self.copy(); copy.value = abs(copy.value); return copy
     def __str__(self): return str(self.value) + " " + self._get_ten_exponent() + self.unit.get()
+    def __repr__(self): return self.__str__()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.raw_value() + other.raw_value()) + " " + self.unit.get_add(other))
     def __sub__(self, other): return v(str(self.raw_value() - other.raw_value()) + " " + self.unit.get_sub(other))

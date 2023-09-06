@@ -46,6 +46,7 @@ The v object parameters are:
 - .to(str) -> String: input string with desired unit: "km/h", "tons", "hours". Returns string with value and unit
 - .change_unit(str) -> None: change unit of value to str e.g. if it was not done corectly
 - .raw() -> Value Object: the string representation has ten exponents. This gives the value without any ten exponents.
+- .abs() -> Value Object: returns new value object with the objects value being the absolute value
 
 
 [See this for an example of how to use some of the functions]

@@ -1,5 +1,5 @@
-# from units_python.__init__ import v, sqrt, nsqrt
-from __init__ import v, sqrt, nsqrt
+from units_python.__init__ import v, sqrt, nsqrt
+# from __init__ import v, sqrt, nsqrt
 
 def run_tests():
 
@@ -71,7 +71,10 @@ if __name__ == "__main__":
     # x = x0 + v0*t + 1/2 * a * t**2
     # print(x.raw())
 
-    print(v("1 km/h").raw())
-    print(v("27.78 m/s").to("km/h"))
+    # print(v("1 km/h").raw())
+    # print(v("27.78 m/s").to("km/h"))
 
-    # run_tests()
+    # a = v("-8 m/s^2")
+    # print(a.abs().raw())
+
+    run_tests()
