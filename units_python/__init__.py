@@ -6,11 +6,11 @@ import re
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
 
-from units_python.functions import fraction_decoder
-from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+# from units_python.functions import fraction_decoder
+# from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
-# from functions import fraction_decoder
-# from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+from functions import fraction_decoder
+from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
@@ -33,9 +33,10 @@ class v():
     def copy(self): return v(self.__str__())
     def round(self, digits): self.value = builtins.round(self.value, digits)
     def sqrt(self, n=2): return self.__pow__(1/n)
-    def raw(self): return str(self.raw_value()) + " " +self.unit.get()
+    def raw(self): return str(self.raw_value()) + " " + self.unit.get()
     def raw_value(self): return self.value * 10 ** self.ten_exponent
-    def __str__(self): return str(self.value) + " " + self._get_ten_exponent() +self.unit.get()
+    def abs(self): copy = self.copy(); copy.value = abs(copy.value); return copy
+    def __str__(self): return str(self.value) + " " + self._get_ten_exponent() + self.unit.get()
     def __eq__(self, other): return str(self) == other
     def __add__(self, other): return v(str(self.raw_value() + other.raw_value()) + " " + self.unit.get_add(other))
     def __sub__(self, other): return v(str(self.raw_value() - other.raw_value()) + " " + self.unit.get_sub(other))
@@ -129,7 +130,7 @@ class v():
         desired_unit_obj = v(f"1 {desired_unit}")
         if self.unit.get(with_power=False) != desired_unit_obj.unit.get(with_power=False): 
             raise Exception(f"{self.unit.get(with_power=False)} does not match with desired unit: {desired_unit} with the SI-unit: {desired_unit_obj.unit.get(with_power=False)}")
-        return f"{(self.value / desired_unit_obj.value)} {desired_unit}"
+        return f"{(self.raw_value() / desired_unit_obj.raw_value())} {desired_unit}"
 
 ## Unit Class ##
 class Unit():
