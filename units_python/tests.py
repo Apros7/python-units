@@ -1,5 +1,5 @@
-# from units_python.__init__ import v, sqrt, nsqrt
-from __init__ import v, sqrt, nsqrt
+from units_python.__init__ import v, sqrt, nsqrt
+# from __init__ import v, sqrt, nsqrt
 
 def run_tests():
 
