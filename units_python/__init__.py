@@ -71,11 +71,9 @@ class v():
                 nom_unit = self._handle_len_1_value(nominator, "mul", unit_obj = nom_unit)
             else: 
                 value_obj = v(nominator)
-                print("Non: ", value_obj.raw())
                 self.value *= value_obj.value
                 nom_unit *= value_obj.unit
                 self.ten_exponent += value_obj.ten_exponent
-                print(self.value, self.ten_exponent)
 
         denom_unit = Unit("")
         if self.denominators:
