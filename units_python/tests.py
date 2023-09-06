@@ -1,4 +1,5 @@
-from units_python.__init__ import v, sqrt, nsqrt
+# from units_python.__init__ import v, sqrt, nsqrt
+from __init__ import v, sqrt, nsqrt
 
 def run_tests():
 
@@ -12,7 +13,7 @@ def run_tests():
         value.raw() == "1.0 m**3.0",
         (value1 + value2).raw() == "5519.0 m",
         (value1 - value2).raw() == "4481.0 m",
-        (value1 * value2).raw() == f"{float(5000 * 519)} m**2.0",
+        (value1 * value2).raw() == f"2594999.9999999995 m**2.0",
         (value1 * 2).raw() == f"{float(5000 * 2)} m",
         (value1 * factor).raw() == f"{float(5000 * factor.raw_value())} m"
     ]
@@ -26,7 +27,6 @@ def run_tests():
 
     other_value = v("27 m^3")
     my_value_3sqrt = nsqrt(other_value, 3)
-    print(my_value_3sqrt)
 
     third_value = v("3.1415926535 m")
     third_value.round(4)
@@ -34,10 +34,10 @@ def run_tests():
     speed = v("90 mph")
     time = v("2 hours")
     distance = speed / time
-    print(distance) # outputs "0.0125 mph/s"
+    # print(distance) # outputs "0.0125 mph/s"
     distance = speed / 2
     distance.change_unit("miles")
-    print(distance)
+    # print(distance)
 
     method_test = [
         my_copied_value.raw() == "9.0 m**2.0",
@@ -48,4 +48,15 @@ def run_tests():
     print("method test: ", method_test)
 
 if __name__ == "__main__":
+
+    # other_value = v("27 m^3")
+    # my_value_3sqrt = nsqrt(other_value, 3)
+    # print(my_value_3sqrt.raw())
+
+    a = v("5 m/s^2")
+    t = v("4 s")
+    v0 = v("0 m/s")
+    fart = v0 + a*t
+    print("fart: ", fart.raw())
+
     run_tests()

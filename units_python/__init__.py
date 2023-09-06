@@ -6,8 +6,11 @@ import re
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
 
-from units_python.functions import fraction_decoder
-from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+# from units_python.functions import fraction_decoder
+# from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+
+from functions import fraction_decoder
+from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
@@ -70,6 +73,7 @@ class v():
                 value_obj = v(nominator)
                 self.value *= value_obj.value
                 nom_unit *= value_obj.unit
+                self.ten_exponent += value_obj.ten_exponent
 
         denom_unit = Unit("")
         if self.denominators:
@@ -80,6 +84,7 @@ class v():
                     value_obj = v(denominator)
                     self.value /= value_obj.value
                     denom_unit *= value_obj.unit
+                    self.ten_exponent -= value_obj.ten_exponent
         self.unit = nom_unit / denom_unit
 
     def _handle_len_1_value(self, value, method, unit_obj):
@@ -110,12 +115,15 @@ class v():
         self._calibrate_ten_exponent()
 
     def _calibrate_ten_exponent(self):
+        # print("_calibration: ", self.value, self.ten_exponent)
+        if self.value == 0: return
         while self.value > 10:
             self.value /= 10
             self.ten_exponent += 1
         while self.value < 1:
             self.value *= 10
             self.ten_exponent -= 1
+        # print("_calibration: ", self.value, self.ten_exponent)
 
     def to(self, desired_unit):
         desired_unit_obj = v(f"1 {desired_unit}")
