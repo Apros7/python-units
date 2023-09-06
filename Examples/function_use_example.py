@@ -20,7 +20,7 @@ print(third_value_rounded) # outputs "3.1416 m"
 speed = v("90 mph")
 time = v("2 hours")
 distance = speed / time
-print(distance) # outputs "0.0125 mph/s"
+print(distance.raw()) # outputs "0.0125 mph/s"
 distance = speed / 2
 distance.change_unit("miles")
-print(distance) # ouputs "45.0 miles"
+print(distance.raw()) # ouputs "45.0 miles"

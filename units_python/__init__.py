@@ -6,11 +6,11 @@ import re
 # Able to add units locally to a config file 
 # that will be loaded when units_python is imported
 
-from units_python.functions import fraction_decoder
-from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+# from units_python.functions import fraction_decoder
+# from units_python.constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
-# from functions import fraction_decoder
-# from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
+from functions import fraction_decoder
+from constants import UNITS, SPECIAL_UNITS, TEN_EXPONENTS, SPECIAL_TEN_EXPONENTS
 
 ## Relevant constants ##
 pi = math.pi
@@ -71,9 +71,11 @@ class v():
                 nom_unit = self._handle_len_1_value(nominator, "mul", unit_obj = nom_unit)
             else: 
                 value_obj = v(nominator)
+                print("Non: ", value_obj.raw())
                 self.value *= value_obj.value
                 nom_unit *= value_obj.unit
                 self.ten_exponent += value_obj.ten_exponent
+                print(self.value, self.ten_exponent)
 
         denom_unit = Unit("")
         if self.denominators:
@@ -89,14 +91,14 @@ class v():
 
     def _handle_len_1_value(self, value, method, unit_obj):
         if self._is_hidden_float(value): 
-            if method == "mul": self.value *= value
-            else: self.value /= value
+            if method == "mul": self.value *= value; self.ten_exponent += value_obj.ten_exponent
+            else: self.value /= value; self.ten_exponent -= value_obj.ten_exponent
         else: 
             if value not in UNITS:
                 value_obj = v(f"1 {value}")
                 unit_obj *= value_obj.unit
-                if method == "mul": self.value *= value_obj.value
-                else: self.value /= value_obj.value
+                if method == "mul": self.value *= value_obj.value; self.ten_exponent += value_obj.ten_exponent
+                else: self.value /= value_obj.value; self.ten_exponent -= value_obj.ten_exponent
             else:
                 unit_obj *= Unit(value)
         return unit_obj

@@ -1,5 +1,5 @@
-from units_python.__init__ import v, sqrt, nsqrt
-# from __init__ import v, sqrt, nsqrt
+# from units_python.__init__ import v, sqrt, nsqrt
+from __init__ import v, sqrt, nsqrt
 
 def run_tests():
 
@@ -53,10 +53,14 @@ if __name__ == "__main__":
     # my_value_3sqrt = nsqrt(other_value, 3)
     # print(my_value_3sqrt.raw())
 
-    a = v("5 m/s^2")
-    t = v("4 s")
-    v0 = v("0 m/s")
-    fart = v0 + a*t
-    print("fart: ", fart.raw())
+    # a = v("5 m/s^2")
+    # t = v("4 s")
+    # v0 = v("0 m/s")
+    # fart = v0 + a*t
+    # print("fart: ", fart.raw())
+
+    # speed_without_unit = 96 / 8
+    # speed = v(f"{speed_without_unit} km/h")
+    # print(speed.raw())
 
     run_tests()
