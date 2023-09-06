@@ -63,4 +63,12 @@ if __name__ == "__main__":
     # speed = v(f"{speed_without_unit} km/h")
     # print(speed.raw())
 
+    # x0 = v("0 m")
+    # a = v("8 m/s^2")
+    # v0 = v("88 km/h") 
+    # t = v0 / v("8 m/s^2")
+    # print(t.raw())
+    # x = x0 + v0*t + 1/2 * a * t**2
+    # print(x.raw())
+
     run_tests()

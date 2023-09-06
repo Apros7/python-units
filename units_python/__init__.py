@@ -117,10 +117,10 @@ class v():
     def _calibrate_ten_exponent(self):
         # print("_calibration: ", self.value, self.ten_exponent)
         if self.value == 0: return
-        while self.value > 10:
+        while abs(self.value) > 10:
             self.value /= 10
             self.ten_exponent += 1
-        while self.value < 1:
+        while abs(self.value) < 1:
             self.value *= 10
             self.ten_exponent -= 1
         # print("_calibration: ", self.value, self.ten_exponent)
